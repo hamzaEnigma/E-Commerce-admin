@@ -1,8 +1,43 @@
-<div class="card">
-  <div class="card-header center-content">
-    <h1 class="m-0">Blank Page</h1>
+<div class="table-container">
+  @let products = filteredProducts$ | async;
+  <div class="table-header d-flex flew-row" style=" justify-content: space-between;">
+    <div>
+    <h2>🛒 Produits et Services</h2>
+    <p>Gérez votre catalogue de produits et services</p>
+    </div>
+    <button class="add-button" style="    height: fit-content;">+ Ajouter un produit</button>
   </div>
-  <div class="card-body">
-    <p>product-list works!</p>
-  </div>
+
+  <input type="text" class="search-input" [formControl]="searchProductFormControl" placeholder="Rechercher par code ou nom..."  />
+
+  <table class="product-table">
+    <thead>
+      <tr>
+        <th>Code Produit</th>
+        <th>Nom</th>
+        <th>Prix de vente</th>
+        <th>Prix d'achat</th>
+        <th>TVA</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of products; track $index) {
+      <tr>
+        <td><i class="fa fa-file-alt"></i> - {{p.productId}}</td>
+        <td>
+          <strong>{{p.productName}}</strong><br />
+          <small>{{p.description}}</small>
+        </td>
+        <td>{{p.sellPrice}}</td>
+        <td>{{p.purchasePrice}}</td>
+        <td>7%</td>
+        <td>
+          <button class="action edit"><i class="fa fa-pen"></i></button>
+          <button class="action delete"><i class="fa fa-trash"></i></button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
 </div>
