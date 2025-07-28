@@ -1,0 +1,63 @@
+<button class="btn btn-primary" routerLink="/products/list" routerLinkActive="active-link">Retour</button>
+
+<div class="container mt-5">
+    <div class="card shadow rounded">
+        <div class="card-body">
+
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                <h4 class="mb-3">📝 Informations générales</h4>
+                <div class="mb-3 ml-40">
+                    <label class="form-label">Nom du produit</label>
+                    <input type="text" class="form-control" formControlName="productName" placeholder="Entrez le nom du produit">
+                </div>
+                <div class="mb-3 ml-40">
+                    <label class="form-label " >Category</label>
+                    <select class="form-select" formControlName="categoryId">
+                        <option selected disabled>Choisissez une catégorie</option>
+                        <option *ngFor="let c of categories" [value]="c.categoryId">{{c.categoryName}}</option>
+                    </select>
+                </div>
+                <div class="mb-3 ml-40">
+                    <label class="form-label ">Description</label>
+                    <textarea class="form-control" rows="3" formControlName="description" placeholder="Entrez la description du produit"></textarea>
+                </div>
+
+                <div class="my-3">
+                    <h4 class="mb-3">💰 Tarification</h4>
+
+                    <div class="row ml-40">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label ">Prix d'achat TTC</label>
+                            <input type="number" formControlName="purchasePrice"  class="form-control" value="0">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label ">Prix de vente TTC</label>
+                            <input type="number" formControlName="sellPrice" class="form-control" value="0">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Section 4 -->
+                <h4 class="mb-3">📦 Stock</h4>
+
+                <div class="row ml-40">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Quantité en stock</label>
+                        <input type="number" formControlName="unitsInStock" class="form-control" placeholder="0" />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Seuil d'alerte</label>
+                        <input type="number" class="form-control" formControlName="stockLimit" placeholder="Stock minimum" />
+                    </div>
+                </div>
+
+                <div class="row d-flex ml-40 mt-3 row-button">
+                    <button type="submit" class="btn btn-primary ml-40" style=" width: 15%;" [disabled]="productForm.invalid">Créer</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

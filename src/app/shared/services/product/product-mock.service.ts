@@ -20,4 +20,10 @@ export class ProductMockService {
    getCategories(): Observable<Category[]> {
     return of(MOCK_categories);
   }
+
+  create(product: Product): Observable<number> {
+    product.productId = Math.max(...this.MOCK_PRODUCTS.map((x) => x.productId ?? 0)) + 1;
+    this.MOCK_PRODUCTS.push(product);
+    return of(product.productId);
+  }
 }

@@ -10,9 +10,14 @@ export const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'products', component: ProductListComponent },
+       {
+        path: 'products',
+        loadChildren: async () =>
+          (await import('./pages/product/product-routes.routes'))
+            .routes,
+      },
       { path: 'categories', component: BlankComponent },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: '', redirectTo: 'products', pathMatch: 'full' },
     ],
   },
 ];
