@@ -5,6 +5,7 @@ import { ProductMockService } from '../../../../shared/services/product/product-
 import { Category } from '../../../../shared/interfaces/product/category.model';
 import { tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-product-add',
@@ -14,6 +15,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductAddComponent {
   private productService = inject(ProductMockService);
+  private alertService = inject(AlertService);
   private router = inject(Router);
   productForm: FormGroup;
   categories: Category[] = [];
@@ -43,7 +45,8 @@ export class ProductAddComponent {
     this.productService.create(this.productForm.value)
     .pipe(
           tap((res)=>console.log('id',res)),
-          tap(()=>this.router.navigate(["/products/list"]))
+          tap(()=>this.router.navigate(["/products/list"])),
+          tap((res)=>this.alertService.success(`Produit avec id :${res} est ajouté à la liste`))
         )
     .subscribe();
   }

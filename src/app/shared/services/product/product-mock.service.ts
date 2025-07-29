@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { MOCK_PRODUCTS } from '../../data/products.mock';
 import { Observable, of } from 'rxjs';
 import { Category } from '../../interfaces/product/category.model';
@@ -10,7 +10,6 @@ import { Product } from '../../interfaces/product/product.model';
 })
 export class ProductMockService {
   MOCK_PRODUCTS = MOCK_PRODUCTS;
-
   constructor() {}
 
   getProducts(): Observable<Product[]> {

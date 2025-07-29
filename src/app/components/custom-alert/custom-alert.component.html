@@ -1,0 +1,5 @@
+<div class="alert-popup-container">
+  <div *ngFor="let alert of alertService.alerts" class="alert alert-{{ alert.type }} alert-dismissible fade show">
+    {{ alert.message }}
+  </div>
+</div>

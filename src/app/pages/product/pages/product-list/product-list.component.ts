@@ -5,6 +5,7 @@ import { BehaviorSubject, combineLatest, debounceTime, delay, Observable, of, st
 import { Product } from '../../../../shared/interfaces/product/product.model';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-product-list',
@@ -14,6 +15,7 @@ import { RouterLink } from '@angular/router';
 })
 export class ProductListComponent {
   private mockProductService = inject(ProductMockService);
+  private alertService = inject(AlertService)
   searchProductFormControl: FormControl = new FormControl<string>('');
   isLoading$ = new BehaviorSubject<boolean>(false);
   filteredProducts$: Observable<Product[]> = 
@@ -26,14 +28,19 @@ export class ProductListComponent {
     tap((res)=> console.log('products',res)),
     switchMap(([products , search]) => 
       {
-      const searchData = search === null ? '' : search;
-      const productsFiltered = products.filter((item: Product) => item.productName.toLowerCase().includes(searchData.toLowerCase()))
+      const searchData = (search ?? '').toString().toLowerCase();
+      const productsFiltered = products.filter((item: Product) => {
+        const nameMatch = item.productName.toLowerCase().includes(searchData);
+        const idMatch = item.productId.toString() === searchData;
+      return nameMatch || idMatch;
+      }
+    )
       return of(productsFiltered)
       }),
     delay(300),
     tap(()=> this.isLoading$.next(false)),
-    tap(res => console.log('filteredProducts', res)),
+    tap(res =>this.alertService.info(res.length+' produits trouvé(s) !')),
+    
   );
-
 
 }

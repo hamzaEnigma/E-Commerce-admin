@@ -1,36 +1,45 @@
 <div class="table-container">
   @let products = filteredProducts$ | async;
+  @let pcount = products?.length;
   <div class="table-header d-flex flew-row" style=" justify-content: space-between;">
     <div>
-    <h2>🛒 Produits et Services</h2>
-    <p>Gérez votre catalogue de produits et services</p>
+      <h2>🛒 Produits et Services</h2>
+      <p> <strong>{{pcount}}</strong> produits et services</p>
     </div>
-    <button class="add-button" style="    height: fit-content;" routerLink="/products/add" routerLinkActive="active-link" >+ Ajouter un produit</button>
+    <button class="btn btn-primary" style="    height: fit-content;" routerLink="/products/add"
+      routerLinkActive="active-link">+ Ajouter un produit</button>
+  </div>
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Rechercher par code ou nom..."
+      [formControl]="searchProductFormControl">
+    <span class="input-group-text">
+      <i class="fas fa-cog"></i>
+    </span>
   </div>
 
-  <input type="text" class="search-input" [formControl]="searchProductFormControl" placeholder="Rechercher par code ou nom..."  />
-
-  <table class="product-table">
+  <table class="table table-striped mt-2">
     <thead>
       <tr>
-        <th>Code Produit</th>
-        <th>Nom</th>
-        <th>Prix de vente</th>
-        <th>Prix d'achat</th>
-        <th>TVA</th>
-        <th>Actions</th>
+        <th scope="col">Code Produit</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prix de vente</th>
+        <th scope="col">Prix d'achat</th>
+        <th scope="col">Stock</th>
+        <th scope="col">TVA</th>
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
       @for (p of products; track $index) {
       <tr>
-        <td><i class="fa fa-file-alt"></i> - {{p.productId}}</td>
+        <td> {{p.productId}}</td>
         <td>
           <strong>{{p.productName}}</strong><br />
           <small>{{p.description}}</small>
         </td>
         <td>{{p.sellPrice}}</td>
         <td>{{p.purchasePrice}}</td>
+        <td>{{p.unitsInStock}}</td>
         <td>7%</td>
         <td>
           <button class="action edit"><i class="fa fa-pen"></i></button>
@@ -40,4 +49,5 @@
       }
     </tbody>
   </table>
+
 </div>
