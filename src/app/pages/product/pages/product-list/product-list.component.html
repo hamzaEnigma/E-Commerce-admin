@@ -1,7 +1,10 @@
 <div class="table-container">
   @let products = filteredProducts$ | async;
   @let pcount = products?.length;
-  <div class="table-header d-flex flew-row" style=" justify-content: space-between;">
+  @let catCount = countCategories$ | async;
+  @let totalQuantity = totalQuantity$ | async;
+
+  <div class="table-header d-flex flew-row content-between" >
     <div>
       <h2>🛒 Produits et Services</h2>
       <p> <strong>{{pcount}}</strong> produits et services</p>
@@ -9,6 +12,7 @@
     <button class="btn btn-primary" style="    height: fit-content;" routerLink="/products/add"
       routerLinkActive="active-link">+ Ajouter un produit</button>
   </div>
+
   <div class="input-group">
     <input type="text" class="form-control" placeholder="Rechercher par code ou nom..."
       [formControl]="searchProductFormControl">
@@ -17,11 +21,35 @@
     </span>
   </div>
 
-  <table class="table table-striped mt-2">
+  <div class=" p-2 mt-2 mb-2 d-flex" style=" justify-content: center;">
+    <div class="d-flex flex-wrap align-items-center gap-4 text-secondary ">
+      <div>
+        Produits & services :<strong class="text-dark mr-2">{{pcount}}</strong>
+      </div>
+      <div>
+        Categories : <strong class="text-dark mr-2"> {{catCount}} </strong>
+      </div>
+      <div>
+        Quantité total : <strong class="text-dark mr-2"> {{totalQuantity}}</strong>
+      </div>
+      <div>
+        Valeur marchandise: <strong class="text-dark mr-2">{{ totalValue$ | async | number:'1.2-2' }} €</strong>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="isLoading$ | async" class="text-center my-3">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <table class="table table-striped mt-2" *ngIf="!(isLoading$ | async)">
     <thead>
       <tr>
         <th scope="col">Code Produit</th>
         <th scope="col">Nom</th>
+        <th scope="col">Categorie</th>
         <th scope="col">Prix de vente</th>
         <th scope="col">Prix d'achat</th>
         <th scope="col">Stock</th>
@@ -37,6 +65,7 @@
           <strong>{{p.productName}}</strong><br />
           <small>{{p.description}}</small>
         </td>
+        <td>{{p.category?.categoryName}}</td>
         <td>{{p.sellPrice}}</td>
         <td>{{p.purchasePrice}}</td>
         <td>{{p.unitsInStock}}</td>

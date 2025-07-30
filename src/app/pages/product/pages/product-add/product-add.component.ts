@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ProductMockService } from '../../../../shared/services/product/product-mock.service';
 import { Category } from '../../../../shared/interfaces/product/category.model';
 import { tap } from 'rxjs';
@@ -9,7 +9,7 @@ import { AlertService } from '../../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-product-add',
-  imports: [RouterLink,CommonModule,ReactiveFormsModule],
+  imports: [RouterLink,RouterLinkActive,CommonModule,ReactiveFormsModule],
   templateUrl: './product-add.component.html',
   styleUrl: './product-add.component.scss',
 })
@@ -25,10 +25,10 @@ export class ProductAddComponent {
       productId: [null],
       productName: ['', Validators.required],
       categoryId: ['', Validators.required],
-      purchasePrice: [0, [Validators.required, Validators.min(0)]],
-      sellPrice: [0, [Validators.required, Validators.min(0)]],
-      unitsInStock: [0, [Validators.min(0)]],
-      stockLimit:[0],
+      purchasePrice: [10, [Validators.required, Validators.min(0)]],
+      sellPrice: [12, [Validators.required, Validators.min(0)]],
+      unitsInStock: [1, [Validators.min(0)]],
+      stockLimit:[3],
       description: [''],
       imageUrl: [''],
     });
