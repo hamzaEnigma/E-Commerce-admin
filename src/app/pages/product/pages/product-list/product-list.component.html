@@ -7,13 +7,12 @@
   <div class="table-header d-flex flew-row content-between" >
     <div>
       <h2>🛒 Produits et Services</h2>
-      <p> <strong>{{pcount}}</strong> produits et services</p>
     </div>
-    <button class="btn btn-primary" style="    height: fit-content;" routerLink="/products/add"
+    <button class="btn btn-primary " style="    height: fit-content;" routerLink="/products/add"
       routerLinkActive="active-link">+ Ajouter un produit</button>
   </div>
 
-  <div class="input-group">
+  <div class="input-group mt-3">
     <input type="text" class="form-control" placeholder="Rechercher par code ou nom..."
       [formControl]="searchProductFormControl">
     <span class="input-group-text">
@@ -71,7 +70,7 @@
         <td>{{p.unitsInStock}}</td>
         <td>7%</td>
         <td>
-          <button class="action edit"><i class="fa fa-pen"></i></button>
+          <button class="action edit"><a [routerLink]="['/products/edit', p.productId]"><i class="fa fa-pen"></i></a></button>
           <button class="action delete"><i class="fa fa-trash"></i></button>
         </td>
       </tr>
