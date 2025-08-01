@@ -34,7 +34,7 @@ export class ProductEditComponent implements OnInit {
       purchasePrice: [10, [Validators.required, Validators.min(0)]],
       sellPrice: [12, [Validators.required, Validators.min(0)]],
       unitsInStock: [1, [Validators.min(0)]],
-      stockLimit: [3],
+      stockLimit: [1],
       description: [''],
       imageUrl: [''],
     });
@@ -55,7 +55,8 @@ export class ProductEditComponent implements OnInit {
       purchasePrice: product.purchasePrice,
       unitsInStock: product.unitsInStock,
       description: product.description,
-      imageUrl: product.imageUrl
+      imageUrl: product.imageUrl,
+      stockLimit : product.stockLimit
     });
   });
   }

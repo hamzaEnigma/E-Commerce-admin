@@ -10,4 +10,5 @@ export interface Product {
   imageUrl?: string;
   description?:string;
   sellPrice?:number;
+  stockLimit?:number;
 }

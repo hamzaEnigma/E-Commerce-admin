@@ -3,7 +3,6 @@
   @let pcount = products?.length;
   @let catCount = countCategories$ | async;
   @let totalQuantity = totalQuantity$ | async;
-
   <div class="table-header d-flex flew-row content-between" >
     <div>
       <h2>🛒 Produits et Services</h2>
@@ -52,7 +51,6 @@
         <th scope="col">Prix de vente</th>
         <th scope="col">Prix d'achat</th>
         <th scope="col">Stock</th>
-        <th scope="col">TVA</th>
         <th scope="col">Actions</th>
       </tr>
     </thead>
@@ -67,8 +65,15 @@
         <td>{{p.category?.categoryName}}</td>
         <td>{{p.sellPrice}}</td>
         <td>{{p.purchasePrice}}</td>
-        <td>{{p.unitsInStock}}</td>
-        <td>7%</td>
+        <td>
+          <span [ngClass]="'badge text-bg-'+getStockClass(p)" [title]="getStockClass(p) === 'danger' ? 'Stock faible' : 'Stock suffisant'">{{p.unitsInStock}}</span>
+           <i
+              *ngIf="getStockClass(p) === 'danger'"
+              class="bi bi-exclamation-triangle-fill text-warning ms-2"
+              title="Stock faible"
+            ></i>
+        </td>
+
         <td>
           <button class="action edit"><a [routerLink]="['/products/edit', p.productId]"><i class="fa fa-pen"></i></a></button>
           <button class="action delete"><i class="fa fa-trash"></i></button>

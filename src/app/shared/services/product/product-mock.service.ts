@@ -4,12 +4,14 @@ import { filter, map, Observable, of } from 'rxjs';
 import { Category } from '../../interfaces/product/category.model';
 import { MOCK_categories } from '../../data/categories.mock';
 import { Product } from '../../interfaces/product/product.model';
+import { MOCK_PRODUCTS_supermarché } from '../../data/products-supermarché.mock';
+import { MOCK_CATEGORIES_supermarche } from '../../data/categories_supermarché.mock';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductMockService {
-  MOCK_PRODUCTS = MOCK_PRODUCTS;
+  MOCK_PRODUCTS = MOCK_PRODUCTS_supermarché;
   constructor() {}
 
   getProducts(): Observable<Product[]> {
@@ -17,7 +19,7 @@ export class ProductMockService {
   }
 
    getCategories(): Observable<Category[]> {
-    return of(MOCK_categories);
+    return of(MOCK_CATEGORIES_supermarche);
   }
 
   create(product: Product): Observable<number> {

@@ -46,7 +46,9 @@ export class ProductListComponent {
       const productsFiltered = products.filter((item: Product) => {
         const nameMatch = item.productName.toLowerCase().includes(searchData);
         const idMatch = item.productId.toString() === searchData;
-        const categMatch = item.category?.categoryName?.toLowerCase().includes(searchData);
+        const categMatch = item.category?.categoryName
+          ?.toLowerCase()
+          .includes(searchData);
         return nameMatch || idMatch || categMatch;
       });
       this.setReactiveVariables(productsFiltered);
@@ -84,5 +86,11 @@ export class ProductListComponent {
     this.setCountCategories(productsFiltered);
     this.setTotalQuantity(productsFiltered);
     this.setTotalValue(productsFiltered);
+  }
+
+  getStockClass(item: Product): string {
+    if (item.unitsInStock == null || item.stockLimit == null)
+      return 'secondary';
+    return item.unitsInStock > item.stockLimit ? 'success' : 'danger';
   }
 }

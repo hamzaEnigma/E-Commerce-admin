@@ -28,7 +28,7 @@ export class ProductAddComponent {
       purchasePrice: [10, [Validators.required, Validators.min(0)]],
       sellPrice: [12, [Validators.required, Validators.min(0)]],
       unitsInStock: [1, [Validators.min(0)]],
-      stockLimit:[3],
+      stockLimit:[1],
       description: [''],
       imageUrl: [''],
     });
